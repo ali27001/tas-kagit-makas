@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Coiny|Indie+Flower" rel="stylesheet">
+    <title>Rock - Paper - Scissors - The Odin Project</title>
+
+</head>
+<body>
+
+<div  class="container">
+    <h4 class="mt-4 text-center"> Rock - Paper - Scissors </h4>
+    <div class="row mt-4 d-flex justify-content-around">
+            <span id="score">You = 0 | 0 = Computer  </span>
+            <span id="tur">Round = 0</span>
+    </div>
+    <div class="row mt-4">
+        <div  class="col-4">
+
+            <a href="#" id="tas">
+                <img src="rock.png" class="img-circle" alt="Taş">
+            </a>
+        </div>
+        <div class="col-4">
+
+            <a href="#" id="kagit">
+                <img src="paper.png" class="img-circle" alt="kağıt" >
+            </a>
+
+        </div>
+        <div class="col-4">
+            <a href="#" id="makas">
+                <img src="scissors.png" class="img-circle" alt="makas">
+            </a>
+        </div>
+
+    </div>
+    <div class="row  pt-4 justify-content-center">
+        <p class="final"></p>
+    </div>
+    <div class="row mt-4 justify-content-center">
+        <button id="reset" type="button" class="btn btn-danger">Reset</button>
+    </div>
+    <div class="row mt-4 justify-content-center">
+        <div class="sonuc">
+            <p> Selections</p>
+        </div>
+
+    </div>
+    <span class="developer">Ali Bulut</span>
+</div>
+</body>
+<style>
+    body{
+
+        font-family: 'Indie Flower', cursive;
+    }
+    .img-circle{
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+    }
+    .img-circle:hover{
+        -webkit-box-shadow: -4px 17px 79px -15px rgba(0,0,0,0.75);
+        -moz-box-shadow: -4px 17px 79px -15px rgba(0,0,0,0.75);
+        box-shadow: -4px 17px 79px -15px rgba(0,0,0,0.75);
+        background: #adf7ff9e;
+        border: 3px solid #8a8989;
+    }
+
+    .sonuc1{
+        margin-bottom: 1px;
+        font-family: initial;
+    }
+    .sonuc{
+        padding-bottom: 30px;
+    }
+    h4{
+        background: #EC7063;
+        padding: 15px;
+    }
+    .final{
+        font-weight: bold;
+        font-size: 20px;
+        background: #F44336;
+        padding: 10px 133px;
+        color: #fff;
+        border-radius: 15px;
+    }
+    .developer{
+        position: fixed;
+        bottom: 0;
+        right: 15px;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<script>
+
+    let round = 0;
+    let player = 0;
+    let computer =0;
+    let winner = " ";
+    let status = " ";
+
+
+    function computerPlay() {
+        items= ["Rock","Paper","Scissors"];
+         return (items[Math.floor(Math.random() * 3)]);
+    }
+
+    function playRound(playerSelection,computerSelection){
+
+        if((playerSelection == 'Rock') && (computerSelection == 'Scissors')||(playerSelection == 'Paper') && (computerSelection == 'Rock') ||(playerSelection == 'Scissors') && (computerSelection == 'Paper')){
+            console.log( playerSelection+ "=" + computerSelection);
+            player+=1;
+            status = "win";
+             return console.log ( "win");
+        }
+        else  if((playerSelection == 'Rock') && (computerSelection == 'Rock')||(playerSelection == 'Paper') && (computerSelection == 'Paper') ||(playerSelection == 'Scissors') && (computerSelection == 'Scissors')){
+            console.log(playerSelection+ "=" + computerSelection);
+            status = "draw";
+            return console.log ("draw" ) ;
+        }
+        else {
+            console.log(playerSelection+ "=" + computerSelection);
+            computer +=1;
+            status = "lose";
+            return console.log ("lose" ) ;
+        }
+
+
+    }
+
+    function  game(playerSelection,computerSelection) {
+
+    //ilk 5 turda en fazla yapan kazanır   if((round<5) || (player == computer)) {
+        if((player<5) && (computer<5)) {  //ilk 5 puanı yapan kazanır
+            playRound(playerSelection, computerSelection);
+            round++;
+            console.log("tur "+ round +" oyuncu =" +player + " pc = "+computer);
+            $( "#score" ).text("You = " + player + " | "+  computer +" = Computer  " );
+            $( "#tur" ).text("Round = "+ round);
+            $( ".sonuc" ).append("<p class='sonuc1'>"+ round+ "." + " You = " + playerSelection + " / "+  computerSelection +" = Computer  " +"<strong>" +" | " + status+"</strong"+"</p>");
+
+        }
+        if(player==5){
+            $( ".final" ).text("WIN");
+        }else if (computer ==5){
+            $( ".final" ).text("LOSE");
+        }
+
+    }
+
+    $( "#tas" ).on( "click", function() {
+        const playerSelection = 'Rock';
+        const computerSelection = computerPlay();
+        game(playerSelection,computerSelection);
+    });
+    $( "#kagit" ).on( "click", function() {
+        const playerSelection = 'Paper';
+        const computerSelection = computerPlay();
+        game(playerSelection,computerSelection);
+    });
+    $( "#makas" ).on( "click", function() {
+        const playerSelection = 'Scissors';
+        const computerSelection = computerPlay();
+        game(playerSelection,computerSelection);
+    });
+    $("#reset").on("click",function () {
+        location.reload();
+    })
+
+</script>
+
+</html>
